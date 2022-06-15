@@ -1,16 +1,45 @@
-# This is a sample Python script.
+import eemeter
+from flask import Flask
+from flask import request
+from werkzeug.utils import secure_filename
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# Inputs
+# csv: datetime (1/1/19 0:00), eload (kWh), Temp (F)
+# Baseline start date - Baseline end date
+# Reporting start date - reporting end date
+# $/kWh
+
+# ToDo
+# Front End:
+#   - plots baseline and Reporting period.
+#   - If the user agrees -> transform data into json format, add all inputs and send data to backend
+# Backend:
+#   - Create endpoint to receive csv and return a csv
+#   - gets csv data, preprocess it into dataframe format
+#   - Fits TOWT to the baseline, predicts energy consumption for reporting if no measure was taken
+#   - Returns:
+#       - json with temperature - baseline + fit, reporting + fit
+#       - Model uncertainty
+#       - Savings (kWh + $)
+
+app = Flask(__name__)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_data():
+    if request.method == 'POST':
+        f = request.files['the_file']
+        f.save('./data/')
+
+def main():
+    # meter_data, temperature_data, sample_metadata = (
+    #     eemeter.load_sample("il-electricity-cdd-hdd-hourly")
+    # )
+    #
+    # print(sample_metadata)
+    # meter_data.head()
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
