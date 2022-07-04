@@ -3,13 +3,13 @@
 
 curl -X POST -H "Content-Type: application/json" -d @FILENAME DESTINATION
 
-curl -X POST -H "Content-Type: application/json" -d @./data/test_data.json http://127.0.0.1:5000/home
-
+curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json http://127.0.0.1:5000/home
 
 # Inputs
 # json: datetime (1/1/19 0:00, TIMEZONE), eload (kWh), Temp (F)
 # Baseline start date - Baseline end date
 # Reporting start date - reporting end date
+# timezone
 # $/kWh (average)
 # UserName
 # Project Name
@@ -18,12 +18,14 @@ curl -X POST -H "Content-Type: application/json" -d @./data/test_data.json http:
 # Front End:
 #   - Sanity Checks: Dates format (M-D-Y), name of columns (including Capital letters)
     - Plots baseline and Reporting period.
+    - Calculate occupancy if not available
 #   - If the user agrees -> transform data into json format, add all inputs and send data to backend
 # Backend:
 #   - Create endpoint to receive json and return a json. OK
-#   - Get data, preprocess it into dataframe format
+#   - Preprocess it into dataframe format (OK)
 #   - Fits TOWT to the baseline, predicts energy consumption for reporting if no measure was taken
 #   - Returns:
 #       - json with datetime, consumption, temperature - baseline + fit, reporting + fit
 #       - Model uncertainty
-#       - Savings (kWh + $)
+#      - Savings (kWh + $)
+
