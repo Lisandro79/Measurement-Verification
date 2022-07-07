@@ -8,6 +8,9 @@ curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json h
 
 curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json https://measurement-and-verification.herokuapp.com/home
 
+response=$(curl -H "Accept: application/json" -H "Content-Type: application/json" \
+-X POST -d @./data/template_data.json '{"user_name"}'  https://measurement-and-verification.herokuapp.com/home)
+
 
 # Inputs
 # json: datetime (1/1/19 0:00, TIMEZONE), eload (kWh), Temp (F)
