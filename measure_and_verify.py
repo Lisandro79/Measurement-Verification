@@ -90,8 +90,8 @@ def cal_track(response):
     # total metered savings
     response['meter_savings'] = metered_savings_dataframe.metered_savings.sum()
 
-    with open('template_response.json', 'w') as out_file:
-        json.dump(response, out_file, indent=6)
+    # with open('template_response.json', 'w') as out_file:
+    #     json.dump(response, out_file, indent=6)
     return response
 
 
