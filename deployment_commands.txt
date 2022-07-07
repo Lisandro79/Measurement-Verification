@@ -1,0 +1,28 @@
+
+https://devcenter.heroku.com/articles/dynos
+
+heroku git:remote euro-buildings-odct
+
+heroku ps:scale
+
+heroku ps:stop run.1
+
+heroku ps:type standard-1x
+
+heroku ps:restart web.1
+
+git push heroku deploy:main
+
+
+### GCP ###
+
+gcloud app deploy --project=odct-global-sprint
+
+You can stream logs from the command line by running:
+  $ gcloud app logs tail -s default
+
+View application:
+  $ gcloud app browse --project=odct-global-sprint
+
+  $ gcloud app --project odct-global-sprint instances enable-debug
+
