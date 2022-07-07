@@ -1,7 +1,7 @@
 
 https://devcenter.heroku.com/articles/dynos
 
-heroku git:remote euro-buildings-odct
+heroku git:remote measurement-and-verification
 
 heroku ps:scale
 
