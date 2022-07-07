@@ -5,6 +5,10 @@ curl -X POST -H "Content-Type: application/json" -d @FILENAME DESTINATION
 
 curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json http://127.0.0.1:5000/home
 
+
+curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json https://measurement-and-verification.herokuapp.com/home
+
+
 # Inputs
 # json: datetime (1/1/19 0:00, TIMEZONE), eload (kWh), Temp (F)
 # Baseline start date - Baseline end date
