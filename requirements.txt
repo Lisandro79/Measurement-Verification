@@ -7,3 +7,5 @@ numpy
 holidays
 matplotlib
 gunicorn
+memory-profiler
+simplejson

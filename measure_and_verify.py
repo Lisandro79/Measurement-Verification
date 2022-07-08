@@ -1,6 +1,8 @@
 import eemeter
 import pandas as pd
 import numpy as np
+import simplejson
+from memory_profiler import profile
 
 
 def format_meter_data(date_time, meter_data):
@@ -18,6 +20,7 @@ def format_temp_data(date_time, temp_data):
     )
 
 
+# @profile
 def cal_track(response):
     '''
     Fit CALTrack
@@ -26,8 +29,8 @@ def cal_track(response):
    '''
 
     baseline_meter_data = format_meter_data(response['baseline_datetime'], response['baseline_eload'])
-    reporting_meter_data = format_meter_data(response['reporting_datetime'], response['reporting_eload'])
     baseline_temp = format_temp_data(response['baseline_datetime'], response['baseline_temp'])
+    reporting_meter_data = format_meter_data(response['reporting_datetime'], response['reporting_eload'])
     reporting_temp = format_temp_data(response['reporting_datetime'], response['reporting_temp'])
 
     # create a design matrix for occupancy and segmentation
@@ -76,19 +79,21 @@ def cal_track(response):
     )
 
     # Compute metered savings for the year of the reporting period we've selected
-    metered_savings_dataframe, error_bands = eemeter.metered_savings(
-        baseline_model, reporting_meter_data,
-        reporting_temp, with_disaggregated=True
+    metered_savings_dataframe, error_bands = \
+        eemeter.metered_savings(baseline_model,
+                                reporting_meter_data,
+                                reporting_temp,
+                                with_disaggregated=True
     )
 
     # metered_savings_dataframe.plot(y=['reporting_observed', 'counterfactual_usage'])
     response['reporting_counterfactual_usage'] = metered_savings_dataframe['counterfactual_usage'].to_list()
     # total metered savings
     response['meter_savings'] = metered_savings_dataframe.metered_savings.sum()
-
     # with open('template_response.json', 'w') as out_file:
     #     json.dump(response, out_file, indent=6)
-    return response
+
+    return simplejson.dumps(response, ignore_nan=True)
 
 
 def sanity_check(response):
@@ -101,10 +106,6 @@ def sanity_check(response):
     # Create occupancy vector??
     pass
 
-
-def run_model(response):
-    sanity_check(response)
-    return cal_track(response)
 
 
 

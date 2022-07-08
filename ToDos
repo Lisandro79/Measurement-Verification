@@ -6,7 +6,7 @@ curl -X POST -H "Content-Type: application/json" -d @FILENAME DESTINATION
 curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json http://127.0.0.1:5000/home
 
 
-curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json https://measurement-and-verification.herokuapp.com/home
+curl -X POST -H "Content-Type: application/json" -d @./data/template_data.json  https://measurement-and-verification.herokuapp.com/
 
 response=$(curl -H "Accept: application/json" -H "Content-Type: application/json" \
 -X POST -d @./data/template_data.json '{"user_name"}'  https://measurement-and-verification.herokuapp.com/home)
