@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import measure_and_verify
 from waitress import serve
 
 app = Flask(__name__)
+CORS(app)
 UPLOAD_FOLDER = 'data/'
 ALLOWED_EXTENSIONS = ['application/json']
 
@@ -17,6 +19,5 @@ def receive_data():
 
 
 if __name__ == '__main__':
-    # app.run(debug=False)
     serve(app, host='0.0.0.0', port=8080)
 
