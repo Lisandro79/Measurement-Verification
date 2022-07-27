@@ -92,7 +92,9 @@ def cal_track(response):
     response['meter_savings'] = metered_savings_dataframe.metered_savings.sum()
     # with open('template_response.json', 'w') as out_file:
     #     json.dump(response, out_file, indent=6)
-
+    # print(response)
+    print("#######")
+    # print(simplejson.dumps(response, ignore_nan=True))
     return simplejson.dumps(response, ignore_nan=True)
 
 

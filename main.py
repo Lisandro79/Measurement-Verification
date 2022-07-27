@@ -14,10 +14,12 @@ def receive_data():
     content_type = request.headers.get('Content-Type')
     if content_type == ALLOWED_EXTENSIONS[0]:
         response = request.get_json()
+	# print(response)
         return measure_and_verify.cal_track(response)
     return jsonify(['Content Type Not Supported'])
 
 
 if __name__ == '__main__':
-    serve(app, host='0.0.0.0', port=8080)
+    app.run(debug=True, host='0.0.0.0', port=8080)
+#    serve(app, host='0.0.0.0', port=8080)
 
