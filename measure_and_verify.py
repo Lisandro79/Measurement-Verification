@@ -86,15 +86,11 @@ def cal_track(response):
                                 with_disaggregated=True
     )
 
-    # metered_savings_dataframe.plot(y=['reporting_observed', 'counterfactual_usage'])
     response['reporting_counterfactual_usage'] = metered_savings_dataframe['counterfactual_usage'].to_list()
-    # total metered savings
     response['meter_savings'] = metered_savings_dataframe.metered_savings.sum()
-    # with open('template_response.json', 'w') as out_file:
-    #     json.dump(response, out_file, indent=6)
-    # print(response)
-    print("#######")
-    # print(simplejson.dumps(response, ignore_nan=True))
+    baseline_fit = baseline_model.predict(baseline_meter_data.index, baseline_temp)
+    response['baseline_fit'] = baseline_fit[0].predicted_usage.to_list()
+
     return simplejson.dumps(response, ignore_nan=True)
 
 
